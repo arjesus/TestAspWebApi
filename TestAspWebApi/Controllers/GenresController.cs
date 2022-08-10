@@ -21,7 +21,7 @@ namespace TestAspWebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]  
+        [HttpGet]
         public async Task<ActionResult<List<GenreDTO>>> GetAllGenres()
         {
             List<GenreEntity> genresDb = await _context.Genres.ToListAsync();
@@ -37,7 +37,7 @@ namespace TestAspWebApi.Controllers
 
             if (genreDb is null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             GenreDTO genreDto = _mapper.Map<GenreDTO>(genreDb);
@@ -57,7 +57,7 @@ namespace TestAspWebApi.Controllers
             return CreatedAtRoute(GetGenreById, new { Id = genreDto.Id }, genreDto);
         }
 
-        [HttpPut("{id:int")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateGenre(int id, [FromBody] GenreCreateNewDTO genreCreateNewDTO)
         {
             bool exist = await _context.Genres.AnyAsync(g => g.Id == id);
@@ -74,5 +74,20 @@ namespace TestAspWebApi.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> DeleteById(int id)
+        {
+            bool exist = await _context.Genres.AnyAsync(g => g.Id == id);
+
+            if (!exist)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(new GenreEntity { Id = id });
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
