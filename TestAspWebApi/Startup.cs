@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace TestAspWebApi
 {
@@ -14,6 +15,11 @@ namespace TestAspWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add services to the container.
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
             
