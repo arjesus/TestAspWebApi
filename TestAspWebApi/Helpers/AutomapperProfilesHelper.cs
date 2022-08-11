@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using TestAspWebApi.DTOs;
+using TestAspWebApi.DTOs.Actors;
+using TestAspWebApi.DTOs.Genres;
 using TestAspWebApi.Entities;
 
 namespace TestAspWebApi.Helpers
@@ -10,6 +11,8 @@ namespace TestAspWebApi.Helpers
         {
             CreateMap<GenreEntity, GenreDTO>().ReverseMap();
             CreateMap<GenreCreateNewDTO, GenreEntity>();
+            CreateMap<ActorEntity, ActorDTO>().ReverseMap();
+            CreateMap<ActorCreateNewDTO, ActorEntity>();
         }
     }
 }

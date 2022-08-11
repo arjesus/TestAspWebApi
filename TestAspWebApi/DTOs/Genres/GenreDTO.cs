@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TestAspWebApi.DTOs
+namespace TestAspWebApi.DTOs.Genres
 {
     public class GenreDTO
     {

@@ -10,5 +10,7 @@ namespace TestAspWebApi
         }
 
         public DbSet<GenreEntity> Genres { get; set; }
+
+        public DbSet<ActorEntity> Actors { get; set; }
     }
 }

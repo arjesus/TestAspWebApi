@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TestAspWebApi.DTOs;
+using TestAspWebApi.DTOs.Genres;
 using TestAspWebApi.Entities;
 
 namespace TestAspWebApi.Controllers
@@ -22,7 +22,7 @@ namespace TestAspWebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GenreDTO>>> GetAllGenres()
+        public async Task<ActionResult<List<GenreDTO>>> GetAll()
         {
             List<GenreEntity> genresDb = await _context.Genres.ToListAsync();
             List<GenreDTO> genresDto = _mapper.Map<List<GenreDTO>>(genresDb);
@@ -40,13 +40,11 @@ namespace TestAspWebApi.Controllers
                 return NotFound();
             }
 
-            GenreDTO genreDto = _mapper.Map<GenreDTO>(genreDb);
-
-            return genreDto;
+            return _mapper.Map<GenreDTO>(genreDb);
         }
 
         [HttpPost]
-        public async Task<ActionResult<GenreDTO>> CreateGenre([FromBody] GenreCreateNewDTO genreCreateNewDto)
+        public async Task<ActionResult<GenreDTO>> Create([FromBody] GenreCreateNewDTO genreCreateNewDto)
         {
             GenreEntity genreDb = _mapper.Map<GenreEntity>(genreCreateNewDto);
             _context.Add(genreDb);
@@ -58,7 +56,7 @@ namespace TestAspWebApi.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> UpdateGenre(int id, [FromBody] GenreCreateNewDTO genreCreateNewDTO)
+        public async Task<ActionResult> UpdateById(int id, [FromBody] GenreCreateNewDTO genreCreateNewDTO)
         {
             bool exist = await _context.Genres.AnyAsync(g => g.Id == id);
             if (!exist)
