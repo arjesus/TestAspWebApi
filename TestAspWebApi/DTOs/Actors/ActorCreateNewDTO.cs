@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestAspWebApi.Validations;
+using TestAspWebApi.Validations.Enums;
 
 namespace TestAspWebApi.DTOs.Actors
 {
@@ -10,6 +12,8 @@ namespace TestAspWebApi.DTOs.Actors
 
         public DateTime Birthday { get; set; }
 
+        [MaxFileSizeValidation(maxSizeInMb: 4)]
+        [FormatFileValidation(supportedFormats: FormatFileEnum.Image)]
         public IFormFile PhotoFile { get; set; }
     }
 }
